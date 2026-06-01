@@ -1,0 +1,37 @@
+# .cnb.yml — CNB 流水线：把代码与 tag 同步到 GitHub 镜像仓库
+# GitHub 收到 v* tag 后由 .github/workflows/publish.yml 触发 npm 可信发布
+#
+#   - GitHub 镜像仓：cuijiawei123/smh-mcp
+#   - 密钥仓 github.yml 内容：username: cuijiawei123 / token: <ghp_PAT>
+
+# 任意分支推送时：同步代码到 GitHub
+"**":
+  push:
+    - stages:
+        - name: Sync code to GitHub
+          image: tencentcom/git-sync
+          imports:
+            - https://cnb.cool/chrisscui/secrets/-/blob/main/github.yml
+          settings:
+            target_url: https://github.com/cuijiawei123/smh-mcp.git
+            auth_type: https
+            username: ${username}
+            password: ${token}
+            push_tags: true
+            force: true
+
+# 打 tag 时：把 tag 同步到 GitHub（触发 GitHub Actions 发布）
+"$":
+  tag_push:
+    - stages:
+        - name: Sync tag to GitHub
+          image: tencentcom/git-sync
+          imports:
+            - https://cnb.cool/chrisscui/secrets/-/blob/main/github.yml
+          settings:
+            target_url: https://github.com/cuijiawei123/smh-mcp.git
+            auth_type: https
+            username: ${username}
+            password: ${token}
+            push_tags: true
+            force: true

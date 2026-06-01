@@ -23,4 +23,13 @@ node_modules/
 # Scripts
 setup.sh
 
+# Secrets / env (must exclude .env itself, not only .env.*)
+.env
 .env.*
+
+# Agent workspace memory (may contain tokens / internal info)
+.workbuddy/
+
+# Backups / temp
+*.bak
+package.json.bak

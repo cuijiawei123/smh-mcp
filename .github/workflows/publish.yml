@@ -1,0 +1,37 @@
+# .github/workflows/publish.yml — GitHub Actions OIDC 可信发布到 npm
+# 收到 v* tag 时触发，无需 NPM_TOKEN。
+#
+# 注意：本包 repository.url 指向 cnb.cool（非构建仓 GitHub），
+# 因此关闭 provenance 溯源（--provenance=false），否则会报 E422。
+
+name: Publish to npm
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  id-token: write   # 可信发布(OIDC)必需
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'              # 需 >= 22.14
+          registry-url: 'https://registry.npmjs.org'
+
+      - run: npm install -g npm@latest     # 确保 npm >= 11.5.1（可信发布要求）
+
+      - run: npm ci
+
+      - run: npm run build
+
+      - run: npm publish --access public --provenance=false
+        # 无需 NPM_TOKEN，OIDC 自动换取短期令牌
+        # repository.url 指向 cnb.cool，故关闭 provenance 避免 E422
