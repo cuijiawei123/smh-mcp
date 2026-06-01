@@ -20,7 +20,7 @@
 - Node.js **>= 18**
 - 在 [腾讯云智能媒资托管控制台](https://console.cloud.tencent.com/smh/library) 创建媒体库：
 
-![SMH 控制台 - 媒体库管理](https://assets.with.woa.com/copilot/cd52091c-602f-4b10-8367-6dc087987f30/image-019e6d4b3e3a7aa28effbfd21a726cee.png)
+![SMH 控制台 - 媒体库管理](./assets/smh-console.png)
 
 ## 快速开始
 
