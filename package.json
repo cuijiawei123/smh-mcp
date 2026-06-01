@@ -1,6 +1,6 @@
 {
   "name": "smh-mcp",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "MCP Server for Tencent Cloud Smart Media (SMH) - Upload, download, and manage files",
   "main": "dist/index.js",
   "type": "module",
