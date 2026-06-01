@@ -22,6 +22,7 @@ set -euo pipefail
 
 # ---- 配置 ----
 REMOTE="cnb"                                      # 外网同步用的远端
+REMOTE_URL="https://cnb.cool/tencent/cloud/smh/smh-mcp.git"  # 没有该远端时自动添加
 BRANCH="master"                                   # 发版分支
 INTERNAL_NAME="@tencent/smh-mcp"                  # 内网包名
 INTERNAL_REGISTRY="http://mirrors.tencent.com/npm/"  # 内网 registry
@@ -31,6 +32,15 @@ PUBLIC_NAME="smh-mcp"                             # 外网包名
 red()   { printf "\033[31m%s\033[0m\n" "$1"; }
 green() { printf "\033[32m%s\033[0m\n" "$1"; }
 blue()  { printf "\033[34m%s\033[0m\n" "$1"; }
+
+# ---- 确保外网远端存在（团队成员若只 clone 了内网 origin，本地不会有 cnb）----
+ensure_remote() {
+  if git remote get-url "${REMOTE}" >/dev/null 2>&1; then
+    return 0
+  fi
+  blue "未检测到远端 '${REMOTE}'，自动添加：${REMOTE_URL}"
+  git remote add "${REMOTE}" "${REMOTE_URL}"
+}
 
 # ---- 解析参数 ----
 BUMP="patch"
@@ -156,6 +166,7 @@ if [[ "${SKIP_INTERNAL}" -eq 0 ]]; then
 fi
 
 # ---- 步骤③：内网成功后，推 commit 和 tag 到外网 ----
+ensure_remote   # 团队成员本地可能没有 cnb 远端，自动补上
 green "→ 推送 commit 到 ${REMOTE}/${BRANCH} ..."
 git push "${REMOTE}" "${BRANCH}"
 
