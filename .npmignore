@@ -1,0 +1,23 @@
+
+# Source code
+src/
+
+# Config files
+tsconfig.json
+.gitignore
+.eslintrc*
+.prettierrc*
+
+# Development
+node_modules/
+*.log
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
+
+# Scripts
+setup.sh
+
+.env.*

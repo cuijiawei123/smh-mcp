@@ -1,49 +1,57 @@
 {
-  "name": "mcp-smh",
+  "name": "smh-mcp",
   "version": "1.0.0",
-  "description": "MCP Server for Tencent Cloud Smart Media Hub (SMH) - Upload, download, and manage files",
+  "description": "MCP Server for Tencent Cloud Smart Media (SMH) - Upload, download, and manage files",
   "main": "dist/index.js",
   "type": "module",
   "bin": {
-    "mcp-smh": "./dist/index.js"
+    "smh-mcp": "dist/index.js"
   },
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch",
-    "start": "node dist/index.js"
+    "start": "node dist/index.js",
+    "clean": "rimraf dist",
+    "prepublishOnly": "npm run clean && npm run build"
   },
   "keywords": [
+    "smh-mcp",
     "mcp",
     "mcp-server",
     "smh",
     "tencent-cloud",
-    "model-context-protocol",
     "file-upload",
-    "file-storage"
+    "file-download",
+    "file-storage",
+    "claude",
+    "anthropic"
   ],
-  "author": "",
-  "license": "ISC",
+  "author": "Tencent Cloud SMH",
+  "license": "MIT",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "git+https://cnb.cool/tencent/cloud/smh/smh-mcp.git"
   },
-  "homepage": "",
+  "homepage": "https://cnb.cool/tencent/cloud/smh/smh-mcp#readme",
+  "bugs": {
+    "url": "https://cnb.cool/tencent/cloud/smh/smh-mcp/-/issues"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.0.4",
-    "@tencent/smh-node-sdk": "^1.0.2",
-    "dotenv": "^17.2.3",
-    "express": "^4.18.2",
-    "fs-extra": "^11.2.0"
+    "dotenv": "^16.4.5",
+    "smh-node-sdk": "1.0.8",
+    "zod": "^3.25.0 || ^4.0.0"
   },
   "devDependencies": {
-    "@types/express": "^4.17.21",
-    "@types/fs-extra": "^11.0.4",
     "@types/node": "^20.10.0",
+    "rimraf": "^5.0.5",
+    "tsx": "^4.22.4",
     "typescript": "^5.3.0"
   },
-  "files": [
-    "dist",
-    "README.md",
-    "package.json"
-  ]
+  "publishConfig": {
+    "access": "public"
+  }
 }
