@@ -22,6 +22,7 @@ node_modules/
 
 # Scripts
 setup.sh
+scripts/
 
 # Secrets / env (must exclude .env itself, not only .env.*)
 .env
@@ -30,6 +31,10 @@ setup.sh
 # Agent workspace memory (may contain tokens / internal info)
 .workbuddy/
 
-# Backups / temp
+# Backups / temp (.package.json.bak from release.sh matches *.bak)
 *.bak
 package.json.bak
+
+# CI / sync config (not needed in published package)
+.cnb.yml
+.github/

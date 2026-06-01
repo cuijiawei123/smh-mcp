@@ -18,7 +18,10 @@
     "dev": "tsc --watch",
     "start": "node dist/index.js",
     "clean": "rimraf dist",
-    "prepublishOnly": "npm run clean && npm run build"
+    "prepublishOnly": "npm run clean && npm run build",
+    "release": "bash scripts/release.sh",
+    "publish:internal": "cp package.json .package.json.bak && npm pkg set name=@tencent/smh-mcp && npm publish --registry=http://mirrors.tencent.com/npm/; mv .package.json.bak package.json",
+    "publish:public": "cp package.json .package.json.bak && npm pkg set name=smh-mcp && npm publish --access public --provenance=false; mv .package.json.bak package.json"
   },
   "keywords": [
     "smh-mcp",
